@@ -49,9 +49,16 @@ class Import
                           inspection_period_id: :period_id,
                           inspection_passed: :passed
                         )
+      inspection_data[:passed] = boolean(inspection_data[:passed])
       @db[:inspections]
         .insert_conflict(:replace)
         .insert(**inspection_data)
     end
+  end
+
+  private
+
+  def boolean(value)
+    { 'TRUE' => true, 'FALSE' => false }[value]
   end
 end

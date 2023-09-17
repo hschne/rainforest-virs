@@ -18,9 +18,15 @@ namespace :db do
   end
 end
 
-namespace :app do
-  task :stats do
-    App.new(DB).stats
+namespace :report do
+  require_relative 'lib/report'
+
+  task :print do
+    Report.new(DB).print
+  end
+
+  task :write do
+    Report.new(DB).write
   end
 end
 
