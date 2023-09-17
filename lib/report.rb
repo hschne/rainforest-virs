@@ -9,9 +9,10 @@ class Report
   def write
     data = collect
     header = %w[org_name tot_v failed_v]
-    CSV.open('out/virs_report.tsv', 'w', col_sep: '\t') do |csv|
+    CSV.open('reports/virs_report.tsv', 'w', col_sep: '\t') do |csv|
       csv << header
-      csv << data.slice(:name, :vehicle_count, :failed).map(&:values)
+      rows = data.map { |h| h.slice(:name, :vehicle_count, :failed) }.map(&:values)
+      rows.each { |row| csv << row }
     end
   end
 
