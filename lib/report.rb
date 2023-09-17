@@ -20,8 +20,9 @@ class Report
     puts collect
   end
 
-  # collect the Virs report containing organizations with the largest number of failed inspections.
   def collect
+    # This SQL returns the three organizations with the highest relative number of failed inspections. Note that
+    # we calculate the number of failed inspections taking nil values into account (not adjugated inspections don't count)
     report_sql = <<~SQL
       SELECT *,
              ((CAST(failed AS FLOAT) / vehicle_count) * 100.0) AS failed_percentage
